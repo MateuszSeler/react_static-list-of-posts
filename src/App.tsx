@@ -7,17 +7,27 @@ import commentsFromServer from './api/comments';
 import usersFromServer from './api/users';
 
 import { PostList } from './components/PostList';
-import { Post } from './components/PostInfo/Post';
-import { Comment } from './components/CommentInfo/Comment';
-import { User } from './components/UserInfo/User';
+import { Post } from './types/Post';
+import { Comment } from './types/Comment';
+import { User } from './types/User';
 
 const posts: Post[] = [];
 const comments: Comment[] = commentsFromServer;
 const users: User[] = usersFromServer;
 
+function findUser(usersToCheck: User[], id: number): User {
+  const user = usersToCheck.find(u => u.id === id);
+
+  if (!user) {
+    throw new Error(`User ${id} not found`);
+  }
+
+  return user;
+}
+
 postsFromServer.map(postFromServer => {
   posts.push({
-    user: users.find(user => user.id === postFromServer.userId),
+    user: findUser(users, postFromServer.userId),
     id: postFromServer.id,
     title: postFromServer.title,
     body: postFromServer.body,

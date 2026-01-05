@@ -1,5 +1,5 @@
-import { Comment } from '../CommentInfo/Comment';
-import { User } from '../UserInfo/User';
+import { Comment } from './Comment';
+import { User } from './User';
 
 export interface Post {
   user: User;
