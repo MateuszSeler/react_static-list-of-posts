@@ -15,7 +15,7 @@ const posts: Post[] = [];
 const comments: Comment[] = commentsFromServer;
 const users: User[] = usersFromServer;
 
-function findUser(usersToCheck: User[], id: number): User {
+function findUserById(usersToCheck: User[], id: number): User {
   const user = usersToCheck.find(u => u.id === id);
 
   if (!user) {
@@ -27,7 +27,7 @@ function findUser(usersToCheck: User[], id: number): User {
 
 postsFromServer.map(postFromServer => {
   posts.push({
-    user: findUser(users, postFromServer.userId),
+    user: findUserById(users, postFromServer.userId),
     id: postFromServer.id,
     title: postFromServer.title,
     body: postFromServer.body,
